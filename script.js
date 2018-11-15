@@ -3,15 +3,17 @@ var GrassEat = [];
 var Pred = [];
 var mah = [];
 var hska = [];
+var amenaker = [];
 var m = 50;
 var matrix = [];
 for (var y = 0; y < m; y++) {
     matrix[y] = [];
     for (var x = 0; x < m; x++) {
-        var n = Math.floor(Math.random() * 6);
+        var n = Math.floor(Math.random() * 7);
         matrix[y][x] = n;
     }
 }
+var exanak = rand(20);
 // var matrix = [
 //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -80,6 +82,10 @@ function setup() {
                 var hsk = new Hska(x, y);
                 hska.push(hsk);
             }
+             else if (matrix[y][x] == 6){
+                 var amk = new Amenaker(x, y);
+                 amenaker.push(amk);
+             }
         }
     }
 }
@@ -110,11 +116,19 @@ function draw() {
                 fill("#fcd4a4");
                 rect(x * side, y * side, side, side);
             }
+            else if (matrix[y][x] == 6){
+                fill("#000000");
+                rect(x * side, y * side, side, side);
+            }
         }
     }
     
              for (var i in grassArr) {
             grassArr[i].mul();
+            if(exanak == 10){
+                fill("white");
+                rect(side * x,side * y,side,side);
+            }
         }
         for (var i in GrassEat) {
             GrassEat[i].eat();
@@ -127,6 +141,9 @@ function draw() {
         }    
         for (var i in hska) {
             hska[i].eat();
+        }
+        for(var i in amenaker){
+            amenaker[i].eat();
         }
     
 
