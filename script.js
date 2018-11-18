@@ -13,7 +13,7 @@ for (var y = 0; y < m; y++) {
         matrix[y][x] = n;
     }
 }
-var exanak = rand(20);
+var astijan = Math.floor(Math.random() * 16);
 // var matrix = [
 //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -60,7 +60,7 @@ var side = 30;
 
 
 function setup() {
-    frameRate(1000);
+    frameRate(100000000);
     createCanvas(matrix[0].length * side, matrix.length * side);
     background('#acacac');
 
@@ -72,9 +72,23 @@ function setup() {
             } else if (matrix[y][x] == 2) {
                 var ge = new GrassEater(x, y);
                 GrassEat.push(ge);
+
             } else if (matrix[y][x] == 3) {
                 var pr = new Predator(x, y);
-                Pred.push(pr);
+                if(astijan > 10){
+                    Pred.push(pr);
+                }
+                
+                else if(astijan < 10){
+                    for (var i in Pred) {
+                        if (Pred[i].x == this.x && Pred[i].y == this.y) {
+                            Pred.splice(i, 1);
+                            matrix[this.y][this.x] = 0;
+                            break;
+                        }
+                    }
+                
+                }
             } else if (matrix[y][x] == 4) {
                 var mh = new Mah(x, y);
                 mah.push(mh);
@@ -98,14 +112,35 @@ function draw() {
         for (var x = 0; x < matrix[y].length; x++) {
 
             if (matrix[y][x] == 1) {
-                fill("green");
-                rect(x * side, y * side, side, side);
+                if(astijan > 10){
+                    fill("green");
+                    rect(x * side, y * side, side, side);
+                }
+                else if(astijan > 0 && astijan < 5){
+                    fill("white");
+                    rect(x * side,y * side, side, side);
+                }
+                else if(astijan > 5 && astijan < 10){
+                    fill("#c9bf66");
+                    rect(x * side,y * side, side, side);
+                }
             } else if (matrix[y][x] == 0) {
                 fill("#acacac");
                 rect(x * side, y * side, side, side);
             } else if (matrix[y][x] == 2) {
+                if(astijan > 10){
                 fill("yellow");
                 rect(x * side, y * side, side, side);
+                }
+                else{
+                    for (var i in Pred) {
+                        if (Pred[i].x == this.x && Pred[i].y == this.y) {
+                            Pred.splice(i, 1);
+                            matrix[this.y][this.x] = 0;
+                            break;
+                        }
+                    }
+                }
             } else if (matrix[y][x] == 3) {
                 fill("red");
                 rect(x * side, y * side, side, side);
@@ -113,8 +148,15 @@ function draw() {
                 fill("blue");
                 rect(x * side, y * side, side, side);
             } else if (matrix[y][x] == 5) {
-                fill("#fcd4a4");
+                if(astijan > 10){
+                    fill("#fcd4a4");
                 rect(x * side, y * side, side, side);
+                console.log(astijan);
+                }
+                else if(astijan < 10){
+                    fill("#d3c0ab");
+                    rect(x * side, y * side, side, side);
+                }
             }
             else if (matrix[y][x] == 6){
                 fill("#000000");
@@ -123,12 +165,8 @@ function draw() {
         }
     }
     
-             for (var i in grassArr) {
-            grassArr[i].mul();
-            if(exanak == 10){
-                fill("white");
-                rect(side * x,side * y,side,side);
-            }
+        for (var i in grassArr) {
+             grassArr[i].mul();
         }
         for (var i in GrassEat) {
             GrassEat[i].eat();
@@ -145,6 +183,5 @@ function draw() {
         for(var i in amenaker){
             amenaker[i].eat();
         }
-    
 
 }
