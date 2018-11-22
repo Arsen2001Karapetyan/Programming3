@@ -4,6 +4,7 @@ var Pred = [];
 var mah = [];
 var hska = [];
 var amenaker = [];
+var KERGR = [];
 var m = 50;
 var matrix = [];
 for (var y = 0; y < m; y++) {
@@ -13,7 +14,7 @@ for (var y = 0; y < m; y++) {
         matrix[y][x] = n;
     }
 }
-var astijan = Math.floor(Math.random() * 16);
+var astijan = Math.floor(Math.random() * 2000);
 // var matrix = [
 //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
 //     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -75,11 +76,11 @@ function setup() {
 
             } else if (matrix[y][x] == 3) {
                 var pr = new Predator(x, y);
-                if(astijan > 10){
+                if (astijan > 10) {
                     Pred.push(pr);
                 }
-                
-                else if(astijan < 10){
+
+                else if (astijan < 10) {
                     for (var i in Pred) {
                         if (Pred[i].x == this.x && Pred[i].y == this.y) {
                             Pred.splice(i, 1);
@@ -87,7 +88,7 @@ function setup() {
                             break;
                         }
                     }
-                
+
                 }
             } else if (matrix[y][x] == 4) {
                 var mh = new Mah(x, y);
@@ -96,10 +97,10 @@ function setup() {
                 var hsk = new Hska(x, y);
                 hska.push(hsk);
             }
-             else if (matrix[y][x] == 6){
-                 var amk = new Amenaker(x, y);
-                 amenaker.push(amk);
-             }
+            else if (matrix[y][x] == 6) {
+                var amk = new Amenaker(x, y);
+                amenaker.push(amk);
+            }
         }
     }
 }
@@ -112,27 +113,31 @@ function draw() {
         for (var x = 0; x < matrix[y].length; x++) {
 
             if (matrix[y][x] == 1) {
-                if(astijan > 10){
+                if (astijan > 10) {
                     fill("green");
                     rect(x * side, y * side, side, side);
                 }
-                else if(astijan > 0 && astijan < 5){
+                else if (astijan > 0 && astijan < 5) {
                     fill("white");
-                    rect(x * side,y * side, side, side);
+                    rect(x * side, y * side, side, side);
                 }
-                else if(astijan > 5 && astijan < 10){
+                else if (astijan > 5 && astijan < 10) {
                     fill("#c9bf66");
-                    rect(x * side,y * side, side, side);
+                    rect(x * side, y * side, side, side);
+                }
+                else if(astijan > 1000 && astijan < 1700){
+                    fill("#a52312");
+                    rect(x * side, y * side, side, side);
                 }
             } else if (matrix[y][x] == 0) {
                 fill("#acacac");
                 rect(x * side, y * side, side, side);
             } else if (matrix[y][x] == 2) {
-                if(astijan > 10){
-                fill("yellow");
-                rect(x * side, y * side, side, side);
+                if (astijan > 10) {
+                    fill("yellow");
+                    rect(x * side, y * side, side, side);
                 }
-                else{
+                else {
                     for (var i in Pred) {
                         if (Pred[i].x == this.x && Pred[i].y == this.y) {
                             Pred.splice(i, 1);
@@ -145,43 +150,65 @@ function draw() {
                 fill("red");
                 rect(x * side, y * side, side, side);
             } else if (matrix[y][x] == 4) {
-                fill("blue");
-                rect(x * side, y * side, side, side);
-            } else if (matrix[y][x] == 5) {
-                if(astijan > 10){
-                    fill("#fcd4a4");
-                rect(x * side, y * side, side, side);
-                console.log(astijan);
+                if (astijan < 7) {
+                    fill("blue");
+                    rect(x * side, y * side, side, side);
                 }
-                else if(astijan < 10){
+                else if (astijan > 7) {
+                    fill("#42dff4");
+                    rect(x * side, y * side, side, side);
+                }
+                else if(astijan >1000 && astijan < 1700){
+                    fill("white");
+                    rect(x * side, y * side, side, side);
+                }
+            } else if (matrix[y][x] == 5) {
+                if (astijan > 10) {
+                    fill("#fcd4a4");
+                    rect(x * side, y * side, side, side);
+                }
+                else if (astijan < 10) {
                     fill("#d3c0ab");
                     rect(x * side, y * side, side, side);
                 }
+                else if(astijan >1000 && astijan < 1700){
+                    fill("white");
+                    rect(x * side, y * side, side, side);
+                }
             }
-            else if (matrix[y][x] == 6){
-                fill("#000000");
-                rect(x * side, y * side, side, side);
+            else if (matrix[y][x] == 6) {
+                if (astijan < 7) {
+                    fill("#000000");
+                    rect(x * side, y * side, side, side);
+                }
+                else if (astijan > 7) {
+                    fill("#a7d1b9");
+                    rect(x * side, y * side, side, side);
+                }
+                else if(astijan >1000 && astijan < 1700){
+                    fill("white");
+                    rect(x * side, y * side, side, side);
+                }
             }
         }
     }
-    
-        for (var i in grassArr) {
-             grassArr[i].mul();
-        }
-        for (var i in GrassEat) {
-            GrassEat[i].eat();
-        }
-        for (var i in Pred) {
-            Pred[i].eat();
-        }
-        for (var i in mah) {
-            mah[i].eat();
-        }    
-        for (var i in hska) {
-            hska[i].eat();
-        }
-        for(var i in amenaker){
-            amenaker[i].eat();
-        }
 
+    for (var i in grassArr) {
+        grassArr[i].mul();
+    }
+    for (var i in GrassEat) {
+        GrassEat[i].eat();
+    }
+    for (var i in Pred) {
+        Pred[i].eat();
+    }
+    for (var i in mah) {
+        mah[i].eat();
+    }
+    for (var i in hska) {
+        hska[i].eat();
+    }
+    for (var i in amenaker) {
+        amenaker[i].eat();
+    }
 }

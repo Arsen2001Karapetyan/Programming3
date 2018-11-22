@@ -15,5 +15,4 @@ class Grass extends Base{
             this.multiply = 0;
         }
     }
-
 }
