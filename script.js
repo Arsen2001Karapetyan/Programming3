@@ -4,13 +4,15 @@ var Pred = [];
 var mah = [];
 var hska = [];
 var amenaker = [];
-var KERGR = [];
+var GrassEatFem = [];
+var PredFem = [];
+var HskaFem = [];
 var m = 50;
 var matrix = [];
 for (var y = 0; y < m; y++) {
     matrix[y] = [];
     for (var x = 0; x < m; x++) {
-        var n = Math.floor(Math.random() * 7);
+        var n = Math.floor(Math.random() * 10);
         matrix[y][x] = n;
     }
 }
@@ -101,6 +103,18 @@ function setup() {
                 var amk = new Amenaker(x, y);
                 amenaker.push(amk);
             }
+            else if (matrix[y][x] == 7) {
+                var gef = new GrassEaterFemale(x, y);
+                GrassEatFem.push(gef);
+            }
+            else if (matrix[y][x] == 8) {
+                var gishf = new PredatorFemale(x, y);
+                PredFem.push(gishf);
+            }
+            else if (matrix[y][x] == 9) {
+                var hskf = new HskaFemale(x, y);
+                HskaFem.push(hskf);
+            }
         }
     }
 }
@@ -125,7 +139,7 @@ function draw() {
                     fill("#c9bf66");
                     rect(x * side, y * side, side, side);
                 }
-                else if(astijan > 1000 && astijan < 1700){
+                else if (astijan > 1000 && astijan < 1700) {
                     fill("#a52312");
                     rect(x * side, y * side, side, side);
                 }
@@ -138,13 +152,8 @@ function draw() {
                     rect(x * side, y * side, side, side);
                 }
                 else {
-                    for (var i in Pred) {
-                        if (Pred[i].x == this.x && Pred[i].y == this.y) {
-                            Pred.splice(i, 1);
-                            matrix[this.y][this.x] = 0;
-                            break;
-                        }
-                    }
+                    fill("#a59d2b");
+                    rect(x * side, y * side, side, side);
                 }
             } else if (matrix[y][x] == 3) {
                 fill("red");
@@ -158,7 +167,7 @@ function draw() {
                     fill("#42dff4");
                     rect(x * side, y * side, side, side);
                 }
-                else if(astijan >1000 && astijan < 1700){
+                else if (astijan > 1000 && astijan < 1700) {
                     fill("white");
                     rect(x * side, y * side, side, side);
                 }
@@ -171,7 +180,7 @@ function draw() {
                     fill("#d3c0ab");
                     rect(x * side, y * side, side, side);
                 }
-                else if(astijan >1000 && astijan < 1700){
+                else if (astijan > 1000 && astijan < 1700) {
                     fill("white");
                     rect(x * side, y * side, side, side);
                 }
@@ -185,7 +194,45 @@ function draw() {
                     fill("#a7d1b9");
                     rect(x * side, y * side, side, side);
                 }
-                else if(astijan >1000 && astijan < 1700){
+                else if (astijan > 1000 && astijan < 1700) {
+                    fill("white");
+                    rect(x * side, y * side, side, side);
+                }
+            }
+            else if (matrix[y][x] == 7) {
+                if (astijan < 7) {
+                    fill("yellow");
+                    rect(x * side, y * side, side, side);
+                }
+                else {
+                    fill("#a59d2b");
+                    rect(x * side, y * side, side, side);
+                }
+            }
+            else if (matrix[y][x] == 8) {
+                if (astijan < 7) {
+                    fill("red");
+                    rect(x * side, y * side.side, side);
+                }
+                else if (astijan > 7) {
+                    fill("#ff5151");
+                    rect(x * side, y * side, side, side);
+                }
+                else if (astijan < 1700 && astijan > 1000) {
+                    fill("white");
+                    rect(x * side, y * side, side, side);
+                }
+            }
+            else if (matrix[y][x] == 9) {
+                if (astijan < 7) {
+                    fill("#fcd4a4");
+                    rect(x * side, y * side, side, side);
+                }
+                else if (astijan > 7) {
+                    fill("#d3c0ab");
+                    rect(x * side, y * side, side, side);
+                }
+                else if (astijan > 1000 && astijan < 1700) {
                     fill("white");
                     rect(x * side, y * side, side, side);
                 }
@@ -210,5 +257,14 @@ function draw() {
     }
     for (var i in amenaker) {
         amenaker[i].eat();
+    }
+    for (var i in GrassEatFem) {
+        GrassEatFem[i].eat();
+    }
+    for (var i in PredFem) {
+        PredFem[i].eat();
+    }
+    for (var i in HskaFem) {
+        HskaFem[i].eat();
     }
 }
